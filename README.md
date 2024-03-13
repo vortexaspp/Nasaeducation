@@ -1,39 +1,38 @@
 <div align="center">
-    <h1>Interstellar Proxy</h1>
+    <img src="https://github.com/InterstellarNetwork/Interstellar/assets/89202835/77c63680-544b-42e9-88d6-d288e7681e82">
+    <p>Serving over 7 million users since 2023.<p>
+    <p>Interstellar is a web proxy with a Clean and Sleek UI and easy to use menus. Our goal is to provide the best user experience to everyone.</p>
 </div>
 
-<p>Interstellar is a popular web proxy, serving over 7 million users since 2023.</p>
+![inpreview](https://github.com/InterstellarNetwork/Interstellar/assets/89202835/2669efed-5186-4932-83c4-725acae60bd2)
 
-### Join Our [Discord Community](https://discord.gg/interstellar)
+> [!IMPORTANT]
+> If you fork this project, consider giving it a star in the original repository!
 
-**If you find this project useful, consider giving it a star in the original repository.**
+**Join Our [Discord Community](https://discord.gg/interstellar) for support, more links, and an active community!**
 
-<h2 align="center">Features</h2>
-<ul>
-    <li>About:Blank Cloaking</li>
-    <li>Fast Speeds</li>
-    <li>Wide Collection of Games</li>
-    <li>Tab Cloaking</li>
-    <li>Wide Collection of Apps</li>
-    <li>Built-In Tab System</li>
-    <li>Clean UI</li>
-    <li>Inspect Element</li>
-    <li>Now.GG Support</li>
-    <li>Built-in Password Protection</li>
-    <li>Geforce Now Support</li>
-</ul>
+## Features
 
-<h2 align="center">Deployment</h2>
+<div align="center">
 
-### Easy Deployment
+| Wide Collection of Games |  Tab Cloaking   | Wide collection of Apps |
+| :----------------------: | :-------------: | :---------------------: |
+|   About:Blank Cloaking   |   Fast Speeds   |   Built in Tab system   |
+|         Clean UI         | Inspect Element |     Now.gg support      |
+|   Password Protection    |     Themes      |   GeForce NOW support   |
 
-**Note:** You **cannot** deploy to static web hosts, including Netlify, Cloudflare Pages, and GitHub Pages.
+</div>
+
+## Deployment
+
+> [!IMPORTANT]
+> You **cannot** deploy to static web hosts, including Netlify, Cloudflare Pages, and GitHub Pages.
 
 <a target="_blank" href="https://heroku.com/deploy/?template=https://github.com/interstellarnetwork/interstellar"><img alt="Deploy to Heroku" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/heroku.svg"></a>
 <a target="_blank" href="https://app.koyeb.com/deploy?type=git&repository=github.com/interstellarnetwork/interstellar"><img alt="Deploy to Koyeb" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg"></a>
 <a target="_blank" href="https://app.cyclic.sh/api/app/deploy/interstellarnetwork/Interstellar"><img alt="Deploy to Cyclic" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/cyclic.svg"></a>
 
-<h2 align="center">Deployment Alternatives</h2>
+### Deployment Alternatives
 
 For more deployment options, join our [Discord Server](https://discord.gg/interstellar) for various ways to deploy Interstellar.
 This includes methods of deploying to Render/OnRender.
@@ -46,23 +45,23 @@ As of January 1st, 2024, Replit is [no longer free](https://blog.replit.com/host
 
 1. Create a GitHub account if you haven't already.
 2. Click "Code" (green button) and then "Create Codespace on main."
-3. In the terminal at the bottom, paste `npm i && npm run start`.
+3. In the terminal at the bottom, paste `pnpm i && pnpm start`.
 4. Respond to the application popup by clicking "Make public."
    > Make sure you actually click the "Make public." button, or the proxy won't function properly.
 5. Access the deployed website from the ports tab.
-6. For subsequent uses in the same codespace, just run `npm run start`
+6. For subsequent uses in the same codespace, just run `pnpm start`
 
 ### Solution for if there is no popup.
 
-1. Run `npm i`, and before `npm run start`, prepend `$env:PORT=8080;`, replacing 8080 with another port. For example, `$env:PORT=6969; npm run start`.
-2. Go to the ports tab, Click Forward A Port, And type the port number.
-3. Right-click Visibility and set Port Visibility to Public.
+1. Run `pnpm i`, and before `pnpm start`, prepend `PORT=8080`, replacing 8080 with another port. For example, `PORT=6969 pnpm start`.
+2. If this does not work then you can prepend `$env:PORT=8080;`, replacing 8080 with another port. For example, `$env:PORT=6969; pnpm start`
+3. Go to the ports tab, Click Forward A Port, And type the port number.
+4. Right-click Visibility and set Port Visibility to Public.
 
-<h2 align="center">Need Help with Deployment?</h2>
+> [!TIP]
+> If you're having trouble, don't hesitate reach out to us on [Discord](https://discord.gg/interstellar) for personalized support.
 
-If you're having trouble, reach out to us on [Discord](https://discord.gg/interstellar) for personalized support.
-
-### Report Issues
+## Report Issues
 
 If you encounter problems, open an issue on GitHub, and we'll address it promptly.
 

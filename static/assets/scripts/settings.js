@@ -1,14 +1,73 @@
+// Ads
+document.addEventListener('DOMContentLoaded', function () {
+  function adChange(selectedValue) {
+    if (selectedValue === 'default') {
+      localStorage.setItem('ad', 'true')
+    } else if (selectedValue === 'off') {
+      localStorage.setItem('ad', 'false')
+    }
+  }
+
+  var adTypeElement = document.getElementById('adType')
+
+  if (adTypeElement) {
+    adTypeElement.addEventListener('change', function () {
+      var selectedOption = this.value
+      adChange(selectedOption)
+    })
+
+    var storedAd = localStorage.getItem('ad')
+    if (storedAd === 'true') {
+      adTypeElement.value = 'default'
+    } else if (storedAd === 'false') {
+      adTypeElement.value = 'off'
+    } else {
+      adTypeElement.value = 'default'
+    }
+  }
+})
+// Dyn
+document.addEventListener('DOMContentLoaded', function () {
+  function pChange(selectedValue) {
+    if (selectedValue === 'uv') {
+      localStorage.setItem('uv', 'true')
+      localStorage.setItem('dy', 'false')
+    } else if (selectedValue === 'dy') {
+      localStorage.setItem('uv', 'false')
+      localStorage.setItem('dy', 'true')
+    }
+  }
+
+  var pChangeElement = document.getElementById('pChange')
+
+  if (pChangeElement) {
+    pChangeElement.addEventListener('change', function () {
+      var selectedOption = this.value
+      pChange(selectedOption)
+    })
+
+    var storedP = localStorage.getItem('uv')
+    if (storedP === 'true') {
+      pChangeElement.value = 'uv'
+    } else if (localStorage.getItem('dy') === 'true' || localStorage.getItem('dy') === 'auto') {
+      pChangeElement.value = 'dy'
+    } else {
+      pChangeElement.value = 'uv'
+    }
+  }
+})
+
 // Key
 var eventKey = localStorage.getItem('eventKey') || '`'
-var panicLink = localStorage.getItem('panicLink') || 'https://classroom.google.com/'
+var pLink = localStorage.getItem('pLink') || 'https://classroom.google.com/'
 
-document.addEventListener('keydown', function (event) {
-  if (event.key === eventKey) {
-    if (window.self !== window.top) {
-      window.parent.location.href = panicLink
-    } else {
-      window.location.href = panicLink
-    }
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('eventKeyInput').value = eventKey
+  document.getElementById('linkInput').value = pLink
+
+  const selectedOption = localStorage.getItem('selectedOption')
+  if (selectedOption) {
+    updateHeadSection(selectedOption)
   }
 })
 
@@ -19,75 +78,127 @@ eventKeyInput.addEventListener('input', function () {
 
 var linkInput = document.getElementById('linkInput')
 linkInput.addEventListener('input', function () {
-  panicLink = linkInput.value
+  pLink = linkInput.value
 })
 
 function saveEventKey() {
   eventKey = eventKeyInput.value
   localStorage.setItem('eventKey', eventKey)
-  localStorage.setItem('panicLink', panicLink)
+  localStorage.setItem('pLink', pLink)
 }
-
 // Tab Cloaker
-function saveName() {
-  const name = document.getElementById('name').value
-  localStorage.setItem('name', name)
-}
-
 function saveIcon() {
-  const icon = document.getElementById('icon').value
-  localStorage.setItem('icon', icon)
+  const iconElement = document.getElementById('icon')
+  const iconValue = iconElement.value
+  console.log('saveIcon function called with icon value:', iconValue)
+  localStorage.setItem('icon', iconValue)
 }
 
-// Function to update favicon and title based on selected option
-function updateHeadSection(selectedValue) {
-  const icon = document.getElementById('tab-favicon')
-  const name = document.getElementById('tab-title')
+function saveName() {
+  const nameElement = document.getElementById('name')
+  const nameValue = nameElement.value
+  console.log('saveName function called with name value:', nameValue)
+  localStorage.setItem('name', nameValue)
+}
 
-  if (selectedValue === 'Google') {
-    icon.setAttribute('href', '/assets/media/favicon/google.png')
-    name.textContent = 'Google'
-    localStorage.setItem('name', 'Google')
-    localStorage.setItem('icon', '/assets/media/favicon/google.png')
-  } else if (selectedValue === 'Drive') {
-    icon.setAttribute('href', '/assets/media/favicon/drive.png')
-    name.textContent = 'My Drive - Google Drive'
-    localStorage.setItem('name', 'My Drive - Google Drive')
-    localStorage.setItem('icon', '/assets/media/favicon/drive.png')
-  } else if (selectedValue === 'Classroom') {
-    icon.setAttribute('href', '/assets/media/favicon/classroom.png')
-    name.textContent = 'Home'
-    localStorage.setItem('name', 'Home')
-    localStorage.setItem('icon', '/assets/media/favicon/classroom.png')
+function CustomIcon() {
+  const iconElement = document.getElementById('icon')
+  const iconValue = iconElement.value
+  console.log('saveIcon function called with icon value:', iconValue)
+  localStorage.setItem('CustomIcon', iconValue)
+}
+
+function CustomName() {
+  const nameElement = document.getElementById('name')
+  const nameValue = nameElement.value
+  console.log('saveName function called with name value:', nameValue)
+  localStorage.setItem('CustomName', nameValue)
+}
+
+function redirectToMainDomain() {
+  var currentUrl = window.location.href
+  var mainDomainUrl = currentUrl.replace(/\/[^\/]*$/, '')
+  if (window != top) {
+    top.location.href = mainDomainUrl + window.location.pathname
+  } else {
+    window.location.href = mainDomainUrl + window.location.pathname
   }
 }
 
-// Redirect
+document.addEventListener('DOMContentLoaded', function (event) {
+  const icon = document.getElementById('tab-favicon')
+  const name = document.getElementById('tab-title')
+  var selectedValue = localStorage.getItem('selectedOption') || 'Default'
+  document.getElementById('dropdown').value = selectedValue
+  updateHeadSection(selectedValue)
+})
+
 function handleDropdownChange(selectElement) {
   var selectedValue = selectElement.value
+  localStorage.removeItem('CustomName')
+  localStorage.removeItem('CustomIcon')
+  localStorage.setItem('selectedOption', selectedValue)
+  updateHeadSection(selectedValue)
   redirectToMainDomain(selectedValue)
 }
 
-function redirectToMainDomain(selectedValue) {
-  var currentUrl = window.location.href
-  var mainDomainUrl = currentUrl.replace(/\/[^\/]*$/, '')
+function updateHeadSection(selectedValue) {
+  const icon = document.getElementById('tab-favicon')
+  const name = document.getElementById('tab-title')
+  const customName = localStorage.getItem('CustomName')
+  const customIcon = localStorage.getItem('CustomIcon')
 
-  if (window != top) {
-    top.location.href = mainDomainUrl
+  if (customName && customIcon) {
+    name.textContent = customName
+    icon.setAttribute('href', customIcon)
+    localStorage.setItem('name', customName)
+    localStorage.setItem('icon', customIcon)
   } else {
-    window.location.href = mainDomainUrl
+    if (selectedValue === 'Google') {
+      icon.setAttribute('href', '/assets/media/favicon/google.png')
+      name.textContent = 'Google'
+      localStorage.setItem('name', 'Google')
+      localStorage.setItem('icon', '/assets/media/favicon/google.png')
+    } else if (selectedValue === 'Drive') {
+      icon.setAttribute('href', '/assets/media/favicon/drive.png')
+      name.textContent = 'My Drive - Google Drive'
+      localStorage.setItem('name', 'My Drive - Google Drive')
+      localStorage.setItem('icon', '/assets/media/favicon/drive.png')
+    } else if (selectedValue === 'Classroom') {
+      icon.setAttribute('href', '/assets/media/favicon/classroom.png')
+      name.textContent = 'Home'
+      localStorage.setItem('name', 'Home')
+      localStorage.setItem('icon', '/assets/media/favicon/classroom.png')
+    }
   }
 }
+// Background Image
+document.addEventListener('DOMContentLoaded', function () {
+  var saveButton = document.getElementById('save-button')
+  saveButton.addEventListener('click', function () {
+    var backgroundInput = document.getElementById('background-input')
+    var imageURL = backgroundInput.value
 
-// Dropdown event listener
-const dropdown = document.getElementById('dropdown')
-dropdown.addEventListener('change', function () {
-  const selectedValue = dropdown.value
-  updateHeadSection(selectedValue)
+    if (imageURL !== '') {
+      localStorage.setItem('backgroundImage', imageURL)
+      document.body.style.backgroundImage = "url('" + imageURL + "')"
+      backgroundInput.value = ''
+    } else {
+    }
+  })
 
-  // Save selected option to localStorage
-  localStorage.setItem('selectedOption', selectedValue)
+  var resetButton = document.getElementById('reset-button')
+  resetButton.addEventListener('click', function () {
+    localStorage.removeItem('backgroundImage')
+    document.body.style.backgroundImage = "url('default-background.jpg')"
+  })
+
+  var savedBackgroundImage = localStorage.getItem('backgroundImage')
+  if (savedBackgroundImage) {
+    document.body.style.backgroundImage = "url('" + savedBackgroundImage + "')"
+  }
 })
+// Particles
 
 const switches = document.getElementById('2')
 
@@ -106,6 +217,7 @@ switches.addEventListener('change', (event) => {
     window.localStorage.setItem('v4Particles', 'false')
   }
 })
+// Themes
 
 var themeId = localStorage.getItem('theme')
 if (themeId == '') {
@@ -130,7 +242,7 @@ function themeChange(ele) {
 
   window.location = window.location
 }
-
+// AB Cloak
 function AB() {
   let inFrame
 
@@ -174,5 +286,34 @@ function toggleAB() {
     localStorage.setItem('ab', 'false')
   } else {
     localStorage.setItem('ab', 'true')
+  }
+}
+// Search Engine
+function EngineChange(dropdown) {
+  var selectedEngine = dropdown.value
+
+  var engineUrls = {
+    Google: 'https://www.google.com/search?q=',
+    Bing: 'https://www.bing.com/search?q=',
+    DuckDuckGo: 'https://duckduckgo.com/?q=',
+    Qwant: 'https://www.qwant.com/?q=',
+    Startpage: 'https://www.startpage.com/search?q=',
+    SearchEncrypt: 'https://www.searchencrypt.com/search/?q=',
+    Ecosia: 'https://www.ecosia.org/search?q=',
+  }
+
+  localStorage.setItem('engine', engineUrls[selectedEngine])
+  localStorage.setItem('enginename', selectedEngine)
+
+  dropdown.value = selectedEngine
+}
+
+function SaveEngine() {
+  var customEngine = document.getElementById('engine-form').value
+  if (customEngine.trim() !== '') {
+    localStorage.setItem('engine', customEngine)
+    localStorage.setItem('enginename', 'Custom')
+  } else {
+    alert('Please enter a custom search engine value.')
   }
 }
